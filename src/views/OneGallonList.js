@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import View from '../components/shared/View'
 
@@ -7,15 +8,23 @@ const OneGallonList = props => {
   return (
     <View>
       {props.recipes.map(recipe => (
-        <Recipe key={recipe.id}>
-          <Header>
-            <h3>
-              {recipe.type} by {recipe.author}
-            </h3>
-            <h4>{recipe.specs.abv}</h4>
-          </Header>
-          <Description>{recipe.description}</Description>
-        </Recipe>
+        <Link
+          to={`recipe/${recipe.id}`}
+          style={{
+            color: 'darkslategrey',
+            textDecoration: 'none',
+          }}
+        >
+          <Recipe key={recipe.id}>
+            <Header>
+              <h3>
+                {recipe.type} by {recipe.author}
+              </h3>
+              <h4>{recipe.specs.abv}</h4>
+            </Header>
+            <Description>{recipe.description}</Description>
+          </Recipe>
+        </Link>
       ))}
     </View>
   )
