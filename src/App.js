@@ -36,7 +36,7 @@ class App extends React.Component {
           <Title to="/">
             <h1>Dank Brewery</h1>
           </Title>
-          <NavBtn to="/one-gallon">One Gal</NavBtn>
+          <NavBtn to="/recipes">Recipes</NavBtn>
           <NavBtn to="/current-brews" background="turquoise" hover="darkturquoise">
             Brewing
           </NavBtn>
@@ -44,10 +44,13 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
-            path="/one-gallon"
+            path="/recipes"
             component={() => <OneGallonList recipes={this.state.oneGallons} />}
           />
-          <Route path="/current-brews" component={CurrentBrews} />
+          <Route
+            path="/current-brews"
+            component={() => <CurrentBrews recipes={this.state.oneGallons} />}
+          />
           <Route component={NotFound} />
         </Switch>
       </div>
