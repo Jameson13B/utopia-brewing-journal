@@ -5,6 +5,7 @@ import { Switch, Route, Link } from 'react-router-dom'
 import { database as db } from './firebase'
 
 import OneGallonList from './views/OneGallonList'
+import CurrentBrews from './views/CurrentBrews'
 import Home from './views/Home'
 
 class App extends React.Component {
@@ -35,6 +36,9 @@ class App extends React.Component {
             <h1>Dank Brewery</h1>
           </Title>
           <NavBtn to="/one-gallon">One Gal</NavBtn>
+          <NavBtn to="/current-brews" background="turquoise" hover="darkturquoise">
+            Brewing
+          </NavBtn>
         </Header>
         <Switch>
           <Route exact path="/" component={Home} />
@@ -42,6 +46,7 @@ class App extends React.Component {
             path="/one-gallon"
             component={() => <OneGallonList recipes={this.state.oneGallons} />}
           />
+          <Route path="/current-brews" component={CurrentBrews} />
           <Route />
         </Switch>
       </div>
@@ -63,15 +68,15 @@ const Title = styled(Link)`
   text-decoration: none;
 `
 const NavBtn = styled(Link)`
-  background: orange;
+  background: ${props => props.background || 'orange'};
   border: 1px solid transparent;
   border-radius: 5px;
   color: darkslategrey;
   font-size: 20px;
   padding: 5px 10px;
   text-decoration: none;
-  transition: background 1s;
+  transition: background 0.5s;
   :hover {
-    background: darkorange;
+    background: ${props => props.hover || 'darkorange'};
   }
 `
