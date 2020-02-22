@@ -6,6 +6,7 @@ import { database as db } from './firebase'
 
 import OneGallonList from './views/OneGallonList'
 import CurrentBrews from './views/CurrentBrews'
+import NotFound from './views/NotFound'
 import Home from './views/Home'
 
 class App extends React.Component {
@@ -47,7 +48,7 @@ class App extends React.Component {
             component={() => <OneGallonList recipes={this.state.oneGallons} />}
           />
           <Route path="/current-brews" component={CurrentBrews} />
-          <Route />
+          <Route component={NotFound} />
         </Switch>
       </div>
     )
