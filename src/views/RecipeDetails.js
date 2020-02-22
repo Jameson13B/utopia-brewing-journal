@@ -24,7 +24,7 @@ const RecipeDetails = props => {
     <View>
       <Recipe>
         {_isEmpty(recipe) ? (
-          <p>Loading...</p>
+          <p>Pouring your beer...</p>
         ) : (
           <React.Fragment>
             <Header>
@@ -58,11 +58,11 @@ const RecipeDetails = props => {
                 ))}
               </ul>
             </Schedule>
+            <p style={{ fontSize: '12px', fontStyle: 'italic', textAlign: 'right' }}>
+              *pending final calculation
+            </p>
           </React.Fragment>
         )}
-        <p style={{ fontSize: '12px', fontStyle: 'italic', textAlign: 'right' }}>
-          *pending final calculation
-        </p>
       </Recipe>
     </View>
   )

@@ -9,13 +9,14 @@ const OneGallonList = props => {
     <View>
       {props.recipes.map(recipe => (
         <Link
+          key={recipe.id}
           to={`recipe/${recipe.id}`}
           style={{
             color: 'darkslategrey',
             textDecoration: 'none',
           }}
         >
-          <Recipe key={recipe.id}>
+          <Recipe>
             <Header>
               <h3>
                 {recipe.type} by {recipe.author}
