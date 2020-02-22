@@ -14,7 +14,7 @@ const OneGallonList = props => {
             </h3>
             <h4>{recipe.specs.abv}</h4>
           </Header>
-          <p>{recipe.description}</p>
+          <Description>{recipe.description}</Description>
         </Recipe>
       ))}
     </View>
@@ -31,9 +31,13 @@ const Recipe = styled.div`
   transition: 0.3s;
   :hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
   }
 `
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+`
+const Description = styled.p`
+  margin-top: 0;
 `
