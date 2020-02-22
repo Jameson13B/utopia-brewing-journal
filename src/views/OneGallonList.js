@@ -8,9 +8,12 @@ const OneGallonList = props => {
     <View>
       {props.recipes.map(recipe => (
         <Recipe key={recipe.id}>
-          <h3>
-            {recipe.type} by {recipe.author}
-          </h3>
+          <Header>
+            <h3>
+              {recipe.type} by {recipe.author}
+            </h3>
+            <h4>{recipe.specs.abv}</h4>
+          </Header>
           <p>{recipe.description}</p>
         </Recipe>
       ))}
@@ -21,10 +24,16 @@ const OneGallonList = props => {
 export default OneGallonList
 
 const Recipe = styled.div`
+  background: papayawhip;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 5px 10px;
+  border-radius: 2px;
+  padding: 10px 15px;
   transition: 0.3s;
   :hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
+`
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
