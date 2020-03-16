@@ -37,6 +37,7 @@ const Recipe = styled.div`
   background: papayawhip;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 2px;
+  margin-bottom: 20px;
   padding: 10px 15px;
   transition: 0.3s;
   :hover {
