@@ -19,7 +19,7 @@ const OneGallonList = props => {
           <Recipe>
             <Header>
               <h3>
-                {recipe.type} by {recipe.author}
+                {recipe.name} by {recipe.author}
               </h3>
               <h4>{recipe.specs.abv}</h4>
             </Header>

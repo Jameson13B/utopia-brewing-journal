@@ -29,15 +29,15 @@ const RecipeDetails = props => {
           <React.Fragment>
             <Header>
               <h3>
-                {recipe.type} by {recipe.author}
+                {recipe.name} by {recipe.author}
               </h3>
             </Header>
             <Description>{recipe.description}</Description>
             <Specs>
-              <h5>ABV: {recipe.specs.abv}</h5>
-              <h5>IBU: {recipe.specs.ibu}</h5>
               <h5>Original Gravity: {recipe.specs.original_grav}</h5>
               <h5>Final Gravity: {recipe.specs.final_grav}</h5>
+              <h5>ABV: {recipe.specs.abv}</h5>
+              <h5>IBU: {recipe.specs.ibu}</h5>
             </Specs>
             <Ingredients>
               <h4>Ingredients:</h4>
@@ -50,12 +50,13 @@ const RecipeDetails = props => {
             <Schedule>
               <h4>Schedule:</h4>
               <ul>
-                {recipe.schedule.map(item => (
-                  <li key={item}>
-                    {moment(item.date.toDate()).format('l')} - {_capitalize(item.step)} -{' '}
-                    {item.duration}
-                  </li>
-                ))}
+                {recipe.schedule &&
+                  recipe.schedule.map(item => (
+                    <li key={item}>
+                      {moment(item.date.toDate()).format('l')} - {_capitalize(item.step)} -{' '}
+                      {item.duration}
+                    </li>
+                  ))}
               </ul>
             </Schedule>
             <p style={{ fontSize: '12px', fontStyle: 'italic', textAlign: 'right' }}>

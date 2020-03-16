@@ -9,6 +9,7 @@ import CurrentBrews from './views/CurrentBrews'
 import RecipeDetails from './views/RecipeDetails'
 import NotFound from './views/NotFound'
 import Home from './views/Home'
+import RecipeForm from './views/RecipeForm'
 
 class App extends React.Component {
   constructor(props) {
@@ -19,15 +20,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    db.collection('onegallon')
-      .get()
-      .then(querySnapshot => {
-        let oneGallons = []
+    db.collection('onegallon').onSnapshot(querySnapshot => {
+      let oneGallons = []
 
-        querySnapshot.forEach(doc => oneGallons.push({ id: doc.id, ...doc.data() }))
+      querySnapshot.forEach(doc => oneGallons.push({ id: doc.id, ...doc.data() }))
 
-        this.setState({ oneGallons })
-      })
+      this.setState({ oneGallons })
+    })
   }
 
   render() {
@@ -38,6 +37,7 @@ class App extends React.Component {
             <h1>Dank Brewery</h1>
           </Title>
           <NavBtn to="/recipes">Recipes</NavBtn>
+          <NavBtn to="/new-recipe">+</NavBtn>
           <NavBtn to="/current-brews" background="turquoise" hover="darkturquoise">
             Current
           </NavBtn>
@@ -53,6 +53,7 @@ class App extends React.Component {
             path="/current-brews"
             component={() => <CurrentBrews recipes={this.state.oneGallons} />}
           />
+          <Route exact path="/new-recipe" component={RecipeForm} />
           <Route component={NotFound} />
         </Switch>
       </div>
