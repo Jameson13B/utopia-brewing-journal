@@ -7,8 +7,8 @@ export const Input = ({
   onChange,
   placeholder,
   styles,
+  type = 'text',
   value,
-  props,
 }) => {
   return (
     <Container>
@@ -21,8 +21,8 @@ export const Input = ({
         onChange={onChange}
         placeholder={placeholder}
         style={styles}
+        type={type}
         value={value}
-        {...props}
       />
       {labelText && labelLocation === 'right' ? (
         <Label labelLocation={labelLocation}>{labelText}</Label>

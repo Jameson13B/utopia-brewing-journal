@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { Input } from './Inputs'
 
-export const InputList = ({ items, setItems, props }) => {
+export const InputList = ({ items, setItems }) => {
   const handleChange = (e, i) => {
     e.preventDefault()
     if (i <= items.length - 1) {

@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { database as db } from '../firebase'
+import _lowerCase from 'lodash/lowerCase'
 
 import View from '../components/shared/View'
 import { Input, TextArea } from '../components/shared/Inputs'
 import { InputList } from '../components/shared/InputList'
 
 const RecipeForm = props => {
+  const [feedback, setFeedback] = useState('')
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
   const [description, setDescription] = useState('')
@@ -18,24 +20,52 @@ const RecipeForm = props => {
 
   const [ingredients, setIngredients] = useState([])
 
+  const [step, setStep] = useState('Brew Phase')
+  const [duration, setDuration] = useState('')
+  const [date, setDate] = useState('')
+
+  const resetState = () => {
+    setFeedback('')
+    setName('')
+    setAuthor('')
+    setDescription('')
+    setOriginalGrav('')
+    setFinalGrav('')
+    setIbu('')
+    setAbv('')
+    setIngredients([])
+    setStep('Brew Phase')
+    setDuration('')
+    setDate('')
+  }
+
   const handleSubmit = e => {
     e.preventDefault()
     if (!name || !author) {
-      // Update validation
-      alert('Missing Info')
+      setFeedback('Brew Name and Author are required')
     } else {
-      db.collection('onegallon').add({
-        name,
-        author,
-        description,
-        specs: {
-          original_grav: originalGrav,
-          final_grav: finalGrav,
-          ibu,
-          abv,
-        },
-        ingredients,
-      })
+      db.collection('onegallon')
+        .add({
+          name,
+          author,
+          description,
+          specs: {
+            original_grav: originalGrav,
+            final_grav: finalGrav,
+            ibu,
+            abv,
+          },
+          ingredients,
+          schedule: [
+            {
+              date,
+              duration,
+              step: _lowerCase(step),
+            },
+          ],
+        })
+        .then(() => resetState())
+        .catch(() => setFeedback('Problem saving new brew'))
     }
   }
 
@@ -44,13 +74,13 @@ const RecipeForm = props => {
       <Form onSubmit={handleSubmit}>
         <h1 style={{ marginBottom: '10px' }}>Create a Brew</h1>
         <Input
-          labelText="Name"
+          labelText="Name*"
           onChange={e => setName(e.target.value)}
           placeholder="Brew Name"
           value={name}
         />
         <Input
-          labelText="Author"
+          labelText="Author*"
           onChange={e => setAuthor(e.target.value)}
           placeholder="Brew Author"
           value={author}
@@ -94,6 +124,28 @@ const RecipeForm = props => {
         <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Ingredients:</h3>
         <InputList items={ingredients} setItems={setIngredients} />
         <Hr />
+        {/* Build out the Schedule section */}
+        <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Schedule:</h3>
+        <Input
+          labelText="Step"
+          onChange={e => setStep(e.target.value)}
+          placeholder="Step"
+          value={step}
+        />
+        <Input
+          labelText="Duration"
+          onChange={e => setDuration(e.target.value)}
+          placeholder="Duration"
+          value={duration}
+        />
+        <Input
+          labelText="Date"
+          onChange={e => setDate(e.target.value)}
+          placeholder="Date"
+          type="date"
+          value={date}
+        />
+        <Hr />
         <Button
           background="red"
           onClick={e => {
@@ -106,9 +158,7 @@ const RecipeForm = props => {
         <Button background="green" onClick={handleSubmit}>
           Submit
         </Button>
-        {/* Build out the Schedule section */}
-        {/* <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Schedule:</h3>
-      <InputList /> */}
+        <Feedback>{feedback}</Feedback>
       </Form>
     </View>
   )
@@ -141,4 +191,9 @@ const Button = styled.button`
 `
 const Hr = styled.hr`
   margin: 20px 15px;
+`
+const Feedback = styled.span`
+  color: red;
+  font-weight: bold;
+  margin-left: 15px;
 `
