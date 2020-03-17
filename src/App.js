@@ -10,6 +10,7 @@ import RecipeDetails from './views/RecipeDetails'
 import NotFound from './views/NotFound'
 import Home from './views/Home'
 import RecipeForm from './views/RecipeForm'
+import UpdateForm from './views/UpdateForm'
 
 class App extends React.Component {
   constructor(props) {
@@ -54,6 +55,11 @@ class App extends React.Component {
             component={() => <CurrentBrews recipes={this.state.oneGallons} />}
           />
           <Route exact path="/new-recipe" component={RecipeForm} />
+          <Route
+            exact
+            path="/update-recipe/:id"
+            render={props => <UpdateForm {...props} recipes={this.state.oneGallons} />}
+          />
           <Route component={NotFound} />
         </Switch>
       </div>
