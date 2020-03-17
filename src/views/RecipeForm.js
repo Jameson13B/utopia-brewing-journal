@@ -1,70 +1,46 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { database as db } from '../firebase'
-import _lowerCase from 'lodash/lowerCase'
 
 import View from '../components/shared/View'
 import { Input, TextArea } from '../components/shared/Inputs'
 import { InputList } from '../components/shared/InputList'
 
+const initialState = {
+  name: '',
+  author: '',
+  description: '',
+  specs: {
+    original_grav: '',
+    final_grav: '',
+    ibu: '',
+    abv: '',
+  },
+  schedule: [
+    {
+      step: 'Brew Phase',
+      duration: '',
+      date: '',
+    },
+  ],
+}
+
 const RecipeForm = props => {
-  const [feedback, setFeedback] = useState('')
-  const [name, setName] = useState('')
-  const [author, setAuthor] = useState('')
-  const [description, setDescription] = useState('')
-
-  const [originalGrav, setOriginalGrav] = useState('')
-  const [finalGrav, setFinalGrav] = useState('')
-  const [ibu, setIbu] = useState('')
-  const [abv, setAbv] = useState('')
-
+  const [data, setData] = useState(initialState)
+  const [feedback, setFeedback] = useState(null)
   const [ingredients, setIngredients] = useState([])
-
-  const [step, setStep] = useState('Brew Phase')
-  const [duration, setDuration] = useState('')
-  const [date, setDate] = useState('')
-
-  const resetState = () => {
-    setFeedback('')
-    setName('')
-    setAuthor('')
-    setDescription('')
-    setOriginalGrav('')
-    setFinalGrav('')
-    setIbu('')
-    setAbv('')
-    setIngredients([])
-    setStep('Brew Phase')
-    setDuration('')
-    setDate('')
-  }
 
   const handleSubmit = e => {
     e.preventDefault()
-    if (!name || !author) {
+    if (!data.name || !data.author) {
       setFeedback('Brew Name and Author are required')
     } else {
       db.collection('onegallon')
-        .add({
-          name,
-          author,
-          description,
-          specs: {
-            original_grav: originalGrav,
-            final_grav: finalGrav,
-            ibu,
-            abv,
-          },
-          ingredients,
-          schedule: [
-            {
-              date,
-              duration,
-              step: _lowerCase(step),
-            },
-          ],
+        .add({ ...data, ingredients })
+        .then(() => {
+          setFeedback(`Successfully created ${data.name}`)
+          setData(initialState)
         })
-        .then(() => resetState())
         .catch(() => setFeedback('Problem saving new brew'))
     }
   }
@@ -75,75 +51,84 @@ const RecipeForm = props => {
         <h1 style={{ marginBottom: '10px' }}>Create a Brew</h1>
         <Input
           labelText="Name*"
-          onChange={e => setName(e.target.value)}
+          onChange={e => setData({ ...data, name: e.target.value })}
           placeholder="Brew Name"
-          value={name}
+          value={data.name}
         />
         <Input
           labelText="Author*"
-          onChange={e => setAuthor(e.target.value)}
+          onChange={e => setData({ ...data, author: e.target.value })}
           placeholder="Brew Author"
-          value={author}
+          value={data.author}
         />
         <TextArea
           labelText="Description"
-          onChange={e => setDescription(e.target.value)}
+          onChange={e => setData({ ...data, description: e.target.value })}
           placeholder="Brew Description"
           rows="6"
-          value={description}
+          value={data.description}
         />
         <Hr />
         <SubSection>
           <h3 style={{ marginBottom: 0, marginTop: 0 }}>Specs:</h3>
           <Input
             labelText="Original Gravity"
-            onChange={e => setOriginalGrav(e.target.value)}
+            onChange={e =>
+              setData({ ...data, specs: { ...data.specs, originalGrav: e.target.value } })
+            }
             placeholder="Original Gravity"
-            value={originalGrav}
+            value={data.specs.original_grav}
           />
           <Input
             labelText="Final Gravity"
-            onChange={e => setFinalGrav(e.target.value)}
+            onChange={e =>
+              setData({ ...data, specs: { ...data.specs, finalGrav: e.target.value } })
+            }
             placeholder="Final Gravity"
-            value={finalGrav}
+            value={data.specs.final_grav}
           />
           <Input
             labelText="ABV"
-            onChange={e => setAbv(e.target.value)}
+            onChange={e => setData({ ...data, specs: { ...data.specs, abv: e.target.value } })}
             placeholder="ABV"
-            value={abv}
+            value={data.specs.abv}
           />
           <Input
             labelText="IBU"
-            onChange={e => setIbu(e.target.value)}
+            onChange={e => setData({ ...data, specs: { ...data.specs, ibu: e.target.value } })}
             placeholder="IBU"
-            value={ibu}
+            value={data.specs.ibu}
           />
         </SubSection>
         <Hr />
         <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Ingredients:</h3>
         <InputList items={ingredients} setItems={setIngredients} />
         <Hr />
-        {/* Build out the Schedule section */}
         <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Schedule:</h3>
         <Input
           labelText="Step"
-          onChange={e => setStep(e.target.value)}
+          onChange={e =>
+            setData({ ...data, schedule: [{ ...data.schedule[0], step: e.target.value }] })
+          }
           placeholder="Step"
-          value={step}
+          value={data.schedule[0].step}
         />
         <Input
           labelText="Duration"
-          onChange={e => setDuration(e.target.value)}
+          onChange={e =>
+            setData({ ...data, schedule: [{ ...data.schedule[0], duration: e.target.value }] })
+          }
           placeholder="Duration"
-          value={duration}
+          value={data.schedule[0].duration}
         />
         <Input
           labelText="Date"
-          onChange={e => setDate(e.target.value)}
+          onChange={e =>
+            setData({ ...data, schedule: [{ ...data.schedule[0], date: e.target.value }] })
+          }
           placeholder="Date"
           type="date"
-          value={date}
+          value={data.schedule[0].date}
         />
         <Hr />
         <Button
