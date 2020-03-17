@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { database as db } from '../firebase'
 import _isEmpty from 'lodash/isEmpty'
-import _capitalize from 'lodash/capitalize'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 import View from '../components/shared/View'
+import { database as db } from '../firebase'
 
 const RecipeDetails = props => {
   const id = props.match.params.id
@@ -53,8 +53,8 @@ const RecipeDetails = props => {
                 {recipe.schedule &&
                   recipe.schedule.map(item => (
                     <li key={item}>
-                      {moment(item.date.toDate()).format('l')} - {_capitalize(item.step)} -{' '}
-                      {item.duration}
+                      {item.date &&
+                        `${moment(item.date).format('l')} - ${item.step} - ${item.duration}`}
                     </li>
                   ))}
               </ul>
@@ -62,6 +62,7 @@ const RecipeDetails = props => {
             <p style={{ fontSize: '12px', fontStyle: 'italic', textAlign: 'right' }}>
               *pending final calculation
             </p>
+            <Link to={`/update-recipe/${recipe.id}`}>Edit</Link>
           </React.Fragment>
         )}
       </Recipe>
