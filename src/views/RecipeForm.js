@@ -39,6 +39,7 @@ const RecipeForm = props => {
         .add({ ...data, ingredients })
         .then(() => {
           setFeedback(`Successfully created ${data.name}`)
+          setIngredients([])
           setData(initialState)
         })
         .catch(() => setFeedback('Problem saving new brew'))
@@ -74,7 +75,7 @@ const RecipeForm = props => {
           <Input
             labelText="Original Gravity"
             onChange={e =>
-              setData({ ...data, specs: { ...data.specs, originalGrav: e.target.value } })
+              setData({ ...data, specs: { ...data.specs, original_grav: e.target.value } })
             }
             placeholder="Original Gravity"
             value={data.specs.original_grav}
@@ -82,7 +83,7 @@ const RecipeForm = props => {
           <Input
             labelText="Final Gravity"
             onChange={e =>
-              setData({ ...data, specs: { ...data.specs, finalGrav: e.target.value } })
+              setData({ ...data, specs: { ...data.specs, final_grav: e.target.value } })
             }
             placeholder="Final Gravity"
             value={data.specs.final_grav}
