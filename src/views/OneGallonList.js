@@ -10,7 +10,7 @@ const OneGallonList = props => {
       {props.recipes.map(recipe => (
         <Link
           key={recipe.id}
-          to={`recipe/${recipe.id}`}
+          to={`/recipe/${recipe.id}`}
           style={{
             color: 'darkslategrey',
             textDecoration: 'none',
