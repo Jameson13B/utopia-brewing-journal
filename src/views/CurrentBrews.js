@@ -21,7 +21,7 @@ const CurrentBrews = props => {
             </Header>
             <Description>{recipe.description}</Description>
             <p>
-              {moment(recipe.schedule[recipe.schedule.length - 1].date.toDate()).format('l')} -{' '}
+              {moment(recipe.schedule[recipe.schedule.length - 1].date).format('l')} -{' '}
               {_capitalize(recipe.schedule[recipe.schedule.length - 1].step)}
             </p>
           </Recipe>
