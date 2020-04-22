@@ -5,7 +5,7 @@ import { Switch, Route, Link } from 'react-router-dom'
 import { database as db } from './firebase'
 
 import OneGallonList from './views/OneGallonList'
-import CurrentBrews from './views/CurrentBrews'
+// import CurrentBrews from './views/CurrentBrews'
 import RecipeDetails from './views/RecipeDetails'
 import NotFound from './views/NotFound'
 import Home from './views/Home'
@@ -37,11 +37,13 @@ class App extends React.Component {
           <Title to="/">
             <h1>Dank Brewery</h1>
           </Title>
-          <NavBtn to="/recipes">Recipes</NavBtn>
-          <NavBtn to="/new-recipe">+</NavBtn>
-          <NavBtn to="/current-brews" background="turquoise" hover="darkturquoise">
+          <div style={{}}>
+            <NavBtn to="/recipes">Recipes</NavBtn>
+            <NavBtn to="/new-recipe">+</NavBtn>
+          </div>
+          {/* <NavBtn to="/current-brews" background="turquoise" hover="darkturquoise">
             Current
-          </NavBtn>
+          </NavBtn> */}
         </Header>
         <Switch>
           <Route exact path="/" component={Home} />
@@ -50,10 +52,10 @@ class App extends React.Component {
             component={() => <OneGallonList recipes={this.state.oneGallons} />}
           />
           <Route path="/recipe/:id" component={RecipeDetails} />
-          <Route
+          {/* <Route
             path="/current-brews"
             component={() => <CurrentBrews recipes={this.state.oneGallons} />}
-          />
+          /> */}
           <Route exact path="/new-recipe" component={RecipeForm} />
           <Route
             exact
@@ -75,6 +77,9 @@ const Header = styled.div`
   justify-content: space-between;
   margin: 0 auto;
   max-width: 550px;
+  @media (max-width: 500px) {
+    padding: 0 10px;
+  }
 `
 const Title = styled(Link)`
   color: darkslategrey;
@@ -89,7 +94,20 @@ const NavBtn = styled(Link)`
   padding: 5px 10px;
   text-decoration: none;
   transition: background 0.5s;
+  &:first-child {
+    margin-right: 15px;
+  }
   :hover {
     background: ${props => props.hover || 'darkorange'};
   }
 `
+
+// To Do:
+// Add style to recipe object, submission form, update form, and ui
+// Add steps to the ui
+// Add steps to the submission form
+// Add steps to the update form
+// Add sessions to the ui
+// Add sessions to the submission form
+// Add new session button/interface
+// Add sessions to the update form*
