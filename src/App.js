@@ -107,3 +107,4 @@ const NavBtn = styled(Link)`
 // Add sessions to the submission form
 // Add new session button/interface
 // Add sessions to the update form*
+// After creating a new recipe, route to list view
