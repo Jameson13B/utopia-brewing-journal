@@ -51,11 +51,13 @@ const UpdateForm = props => {
       setFeedback('Brew Name and Author are required')
     } else {
       db.collection('onegallon')
-        .add({ ...data, ingredients })
+        .doc(props.match.params.id)
+        .update({ ...data, ingredients })
         .then(() => {
           setFeedback(`Successfully created ${data.name}`)
           setIngredients([])
           setData(initialState)
+          props.history.push(`/recipe/${props.match.params.id}`)
         })
         .catch(() => setFeedback('Problem saving new brew'))
     }

@@ -15,9 +15,7 @@ const RecipeDetails = props => {
     db.collection('onegallon')
       .doc(id)
       .get()
-      .then(doc => {
-        setRecipe({ id: doc.id, ...doc.data() })
-      })
+      .then(doc => setRecipe({ id: doc.id, ...doc.data() }))
   }, [id])
 
   return (
