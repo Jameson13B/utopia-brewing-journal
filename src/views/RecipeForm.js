@@ -26,9 +26,10 @@ const initialState = {
 }
 
 const RecipeForm = props => {
-  const [data, setData] = useState(initialState)
   const [feedback, setFeedback] = useState(null)
+  const [data, setData] = useState(initialState)
   const [ingredients, setIngredients] = useState([])
+  const [steps, setSteps] = useState([])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -36,7 +37,7 @@ const RecipeForm = props => {
       setFeedback('Brew Name and Author are required')
     } else {
       db.collection('onegallon')
-        .add({ ...data, ingredients })
+        .add({ ...data, ingredients, steps })
         .then(() => {
           setFeedback(`Successfully created ${data.name}`)
           setIngredients([])
@@ -113,21 +114,7 @@ const RecipeForm = props => {
         <InputList items={ingredients} setItems={setIngredients} />
         <Hr />
         <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Steps:</h3>
-        <Input
-          labelText="Step"
-          onChange={e => setData({ ...data, steps: [{ ...data.steps[0], title: e.target.value }] })}
-          placeholder="Step"
-          value={data.steps[0].title}
-        />
-        <TextArea
-          labelText="Description"
-          onChange={e =>
-            setData({ ...data, steps: [{ ...data.steps[0], description: e.target.value }] })
-          }
-          placeholder="Description"
-          rows="6"
-          value={data.steps[0].description}
-        />
+        <InputList items={steps} schema="i,t" setItems={setSteps} />
         <Hr />
         <Button
           background="red"

@@ -17,24 +17,21 @@ const initialState = {
     ibu: '',
     abv: '',
   },
-  steps: [
-    {
-      title: '',
-      description: '',
-    },
-  ],
 }
 
 const UpdateForm = props => {
-  const [data, setData] = useState(initialState)
   const [feedback, setFeedback] = useState(null)
+  const [data, setData] = useState(initialState)
   const [ingredients, setIngredients] = useState([])
+  const [steps, setSteps] = useState([])
 
   useEffect(() => {
     const ingredients = []
+    const steps = []
     const recipe = props.recipes.filter(recipe => {
       if (recipe.id === props.match.params.id) {
         recipe.ingredients.map(ingredient => ingredients.push(ingredient))
+        recipe.steps.map(step => steps.push(step))
         return true
       } else {
         return false
@@ -43,6 +40,7 @@ const UpdateForm = props => {
 
     setData(recipe[0])
     setIngredients(ingredients)
+    setSteps(steps)
   }, [props.recipes, props.match.params.id, props])
 
   const handleUpdate = e => {
@@ -52,7 +50,7 @@ const UpdateForm = props => {
     } else {
       db.collection('onegallon')
         .doc(props.match.params.id)
-        .update({ ...data, ingredients })
+        .update({ ...data, ingredients, steps })
         .then(() => {
           setFeedback(`Successfully created ${data.name}`)
           setIngredients([])
@@ -129,21 +127,7 @@ const UpdateForm = props => {
         <InputList items={ingredients} setItems={setIngredients} />
         <Hr />
         <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Steps:</h3>
-        <Input
-          labelText="Step"
-          onChange={e => setData({ ...data, steps: [{ ...data.steps[0], title: e.target.value }] })}
-          placeholder="Step"
-          value={data.steps[0].title}
-        />
-        <TextArea
-          labelText="Description"
-          onChange={e =>
-            setData({ ...data, steps: [{ ...data.steps[0], description: e.target.value }] })
-          }
-          placeholder="Description"
-          rows="6"
-          value={data.steps[0].description}
-        />
+        <InputList items={steps} schema="i,t" setItems={setSteps} />
         <Hr />
         <Button
           background="red"
