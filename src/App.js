@@ -103,9 +103,6 @@ const NavBtn = styled(Link)`
 `
 
 // To Do:
-// Add steps to the ui
-// Add steps to the submission form
-// Add steps to the update form
 // Add sessions to the ui
 // Add sessions to the submission form
 // Add new session button/interface

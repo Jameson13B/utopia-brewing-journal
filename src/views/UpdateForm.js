@@ -17,11 +17,10 @@ const initialState = {
     ibu: '',
     abv: '',
   },
-  schedule: [
+  steps: [
     {
-      step: 'Brew Phase',
-      duration: '',
-      date: '',
+      title: '',
+      description: '',
     },
   ],
 }
@@ -129,33 +128,22 @@ const UpdateForm = props => {
         <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Ingredients:</h3>
         <InputList items={ingredients} setItems={setIngredients} />
         <Hr />
-        <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Schedule:</h3>
-        <p>This section coming soon!</p>
-        {/* <Input
+        <h3 style={{ marginBottom: 0, marginLeft: '15px' }}>Steps:</h3>
+        <Input
           labelText="Step"
-          onChange={e =>
-            setData({ ...data, schedule: [{ ...data.schedule[0], step: e.target.value }] })
-          }
+          onChange={e => setData({ ...data, steps: [{ ...data.steps[0], title: e.target.value }] })}
           placeholder="Step"
-          value={data.schedule[0].step}
+          value={data.steps[0].title}
         />
-        <Input
-          labelText="Duration"
+        <TextArea
+          labelText="Description"
           onChange={e =>
-            setData({ ...data, schedule: [{ ...data.schedule[0], duration: e.target.value }] })
+            setData({ ...data, steps: [{ ...data.steps[0], description: e.target.value }] })
           }
-          placeholder="Duration"
-          value={data.schedule[0].duration}
+          placeholder="Description"
+          rows="6"
+          value={data.steps[0].description}
         />
-        <Input
-          labelText="Date"
-          onChange={e =>
-            setData({ ...data, schedule: [{ ...data.schedule[0], date: e.target.value }] })
-          }
-          placeholder="Date"
-          type="date"
-          value={data.schedule[0].date}
-        /> */}
         <Hr />
         <Button
           background="red"

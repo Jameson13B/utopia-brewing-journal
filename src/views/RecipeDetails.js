@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import _isEmpty from 'lodash/isEmpty'
-import moment from 'moment'
 import { Link } from 'react-router-dom'
 
 import View from '../components/shared/View'
@@ -42,22 +41,24 @@ const RecipeDetails = props => {
               <h4>Ingredients:</h4>
               <ul>
                 {recipe.ingredients.map(item => (
-                  <li key={item}>{item}</li>
+                  <li key={item} style={{ listStyleType: 'circle' }}>
+                    {item}
+                  </li>
                 ))}
               </ul>
             </Ingredients>
-            <Schedule>
-              <h4>Schedule:</h4>
-              <ul>
-                {recipe.schedule &&
-                  recipe.schedule.map(item => (
-                    <li key={item}>
-                      {item.date &&
-                        `${moment(item.date).format('l')} - ${item.step} - ${item.duration}`}
+            <Steps>
+              <h4>Steps:</h4>
+              <ol style={{ paddingLeft: '20px' }}>
+                {recipe.steps &&
+                  recipe.steps.map(step => (
+                    <li key={step} style={{ listStyleType: 'none' }}>
+                      <p style={{ fontWeight: '700', marginBottom: '5px' }}>{step.title}</p>
+                      <p style={{ marginTop: '0' }}>{step.description}</p>
                     </li>
                   ))}
-              </ul>
-            </Schedule>
+              </ol>
+            </Steps>
             <p style={{ fontSize: '12px', fontStyle: 'italic', textAlign: 'right' }}>
               *pending final calculation
             </p>
@@ -89,7 +90,7 @@ const Style = styled.h5`
 `
 const Specs = styled.div``
 const Ingredients = styled.div``
-const Schedule = styled.div``
+const Steps = styled.div``
 const Description = styled.p`
   margin-top: 0;
 `
