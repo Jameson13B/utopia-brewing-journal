@@ -103,7 +103,6 @@ const NavBtn = styled(Link)`
 `
 
 // To Do:
-// Add style to recipe object, submission form, update form, and ui
 // Add steps to the ui
 // Add steps to the submission form
 // Add steps to the update form

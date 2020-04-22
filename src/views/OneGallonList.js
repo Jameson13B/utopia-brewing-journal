@@ -18,9 +18,12 @@ const OneGallonList = props => {
         >
           <Recipe>
             <Header>
-              <h3>
-                {recipe.name} by {recipe.author}
-              </h3>
+              <div>
+                <h3 style={{ marginBottom: '5px' }}>
+                  {recipe.name} by {recipe.author}
+                </h3>
+                <Style>{recipe.style}</Style>
+              </div>
               <h4>{recipe.specs.abv}</h4>
             </Header>
             <Description>{recipe.description}</Description>
@@ -48,6 +51,12 @@ const Recipe = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+`
+const Style = styled.h5`
+  margin: 0 0 15px 3px;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 12px;
 `
 const Description = styled.p`
   margin-top: 0;

@@ -26,9 +26,10 @@ const RecipeDetails = props => {
         ) : (
           <React.Fragment>
             <Header>
-              <h3>
+              <h3 style={{ marginBottom: '5px' }}>
                 {recipe.name} by {recipe.author}
               </h3>
+              <Style>{recipe.style}</Style>
             </Header>
             <Description>{recipe.description}</Description>
             <Specs>
@@ -78,7 +79,13 @@ const Recipe = styled.div`
 `
 const Header = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+`
+const Style = styled.h5`
+  margin: 0 0 15px 3px;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 12px;
 `
 const Specs = styled.div``
 const Ingredients = styled.div``

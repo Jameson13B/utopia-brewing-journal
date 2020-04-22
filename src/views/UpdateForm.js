@@ -9,6 +9,7 @@ import { InputList } from '../components/shared/InputList'
 const initialState = {
   name: '',
   author: '',
+  style: '',
   description: '',
   specs: {
     original_grav: '',
@@ -78,6 +79,12 @@ const UpdateForm = props => {
           onChange={e => setData({ ...data, author: e.target.value })}
           placeholder="Brew Author"
           value={data.author}
+        />
+        <Input
+          labelText="Style"
+          onChange={e => setData({ ...data, style: e.target.value })}
+          placeholder="Brew Style"
+          value={data.style}
         />
         <TextArea
           labelText="Description"
