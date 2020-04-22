@@ -41,6 +41,7 @@ const RecipeForm = props => {
           setFeedback(`Successfully created ${data.name}`)
           setIngredients([])
           setData(initialState)
+          props.history.push('/recipes')
         })
         .catch(() => setFeedback('Problem saving new brew'))
     }

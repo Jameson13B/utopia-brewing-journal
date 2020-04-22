@@ -56,6 +56,10 @@ class App extends React.Component {
           />
           <Route path="/recipe/:id" component={RecipeDetails} />
           {/* <Route
+            path="/current-sessions"
+            component={() => <CurrentSessions />}
+          /> */}
+          {/* <Route
             path="/current-brews"
             component={() => <CurrentBrews recipes={this.state.oneGallons} />}
           /> */}
