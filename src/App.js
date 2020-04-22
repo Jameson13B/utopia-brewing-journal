@@ -41,6 +41,9 @@ class App extends React.Component {
             <NavBtn to="/recipes">Recipes</NavBtn>
             <NavBtn to="/new-recipe">+</NavBtn>
           </div>
+          <NavBtn to="/current-sessions" background="turquoise" hover="darkturquoise">
+            Sessions
+          </NavBtn>
           {/* <NavBtn to="/current-brews" background="turquoise" hover="darkturquoise">
             Current
           </NavBtn> */}
@@ -79,11 +82,21 @@ const Header = styled.div`
   max-width: 550px;
   @media (max-width: 500px) {
     padding: 0 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-bottom: 15px;
+    h1 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
   }
 `
 const Title = styled(Link)`
   color: darkslategrey;
   text-decoration: none;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `
 const NavBtn = styled(Link)`
   background: ${props => props.background || 'orange'};
@@ -95,7 +108,7 @@ const NavBtn = styled(Link)`
   text-decoration: none;
   transition: background 0.5s;
   &:first-child {
-    margin-right: 15px;
+    margin-right: 5px;
   }
   :hover {
     background: ${props => props.hover || 'darkorange'};
