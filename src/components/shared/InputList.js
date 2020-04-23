@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Input, TextArea } from './Inputs'
+import { Button } from './Button'
 
 export const InputList = ({ items, schema, setItems }) => {
   const handleChange = (e, i, key) => {
@@ -92,19 +93,4 @@ export const InputList = ({ items, schema, setItems }) => {
 
 const Container = styled.div`
   width: 100%;
-`
-const Button = styled.button`
-  background: ${props => props.background || 'orange'};
-  border: 1px solid transparent;
-  border-radius: 5px;
-  color: white;
-  font-size: 15px;
-  margin-left: 15px;
-  margin-top: 10px;
-  padding: 5px 10px;
-  text-decoration: none;
-  transition: background 0.5s;
-  :hover {
-    background: ${props => 'dark' + props.background || 'darkorange'};
-  }
 `

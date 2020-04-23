@@ -5,6 +5,7 @@ import { database as db } from '../firebase'
 import View from '../components/shared/View'
 import { Input, TextArea } from '../components/shared/Inputs'
 import { InputList } from '../components/shared/InputList'
+import { Button } from '../components/shared/Button'
 
 const initialState = {
   name: '',
@@ -143,21 +144,6 @@ const Form = styled.form`
 `
 const SubSection = styled.div`
   margin-left: 15px;
-`
-const Button = styled.button`
-  background: ${props => props.background || 'orange'};
-  border: 1px solid transparent;
-  border-radius: 5px;
-  color: white;
-  font-size: 15px;
-  margin-left: 15px;
-  margin-top: 10px;
-  padding: 5px 10px;
-  text-decoration: none;
-  transition: background 0.5s;
-  :hover {
-    background: ${props => 'dark' + props.background || 'darkorange'};
-  }
 `
 const Hr = styled.hr`
   margin: 20px 15px;

@@ -5,6 +5,7 @@ import { database as db } from '../firebase'
 import View from '../components/shared/View'
 import { Input, TextArea } from '../components/shared/Inputs'
 import { InputList } from '../components/shared/InputList'
+import { Button } from '../components/shared/Button'
 
 const initialState = {
   name: '',
@@ -30,8 +31,8 @@ const UpdateForm = props => {
     const steps = []
     const recipe = props.recipes.filter(recipe => {
       if (recipe.id === props.match.params.id) {
-        recipe.ingredients.map(ingredient => ingredients.push(ingredient))
-        recipe.steps.map(step => steps.push(step))
+        recipe.ingredients && recipe.ingredients.map(ingredient => ingredients.push(ingredient))
+        recipe.steps && recipe.steps.map(step => steps.push(step))
         return true
       } else {
         return false
@@ -156,21 +157,6 @@ const Form = styled.form`
 `
 const SubSection = styled.div`
   margin-left: 15px;
-`
-const Button = styled.button`
-  background: ${props => props.background || 'orange'};
-  border: 1px solid transparent;
-  border-radius: 5px;
-  color: white;
-  font-size: 15px;
-  margin-left: 15px;
-  margin-top: 10px;
-  padding: 5px 10px;
-  text-decoration: none;
-  transition: background 0.5s;
-  :hover {
-    background: ${props => 'dark' + props.background || 'darkorange'};
-  }
 `
 const Hr = styled.hr`
   margin: 20px 15px;
