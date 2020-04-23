@@ -4,11 +4,14 @@ import _isEmpty from 'lodash/isEmpty'
 import { Link } from 'react-router-dom'
 
 import View from '../components/shared/View'
+import { Button } from '../components/shared/Button'
+import { Modal } from '../components/shared/Modal'
 import { database as db } from '../firebase'
 
 const RecipeDetails = props => {
   const id = props.match.params.id
   const [recipe, setRecipe] = useState({})
+  const [showDeleteModal, toggleDeleteModal] = useState(false)
 
   useEffect(() => {
     db.collection('onegallon')
@@ -16,6 +19,16 @@ const RecipeDetails = props => {
       .get()
       .then(doc => setRecipe({ id: doc.id, ...doc.data() }))
   }, [id])
+
+  const handleDelete = () =>
+    db
+      .collection('onegallon')
+      .doc(id)
+      .delete()
+      .then(() => {
+        toggleDeleteModal(false)
+        props.history.push('/recipes')
+      })
 
   return (
     <View>
@@ -63,9 +76,23 @@ const RecipeDetails = props => {
               *pending final calculation
             </p>
             <Link to={`/update-recipe/${recipe.id}`}>Edit</Link>
+            <Button background="red" onClick={() => toggleDeleteModal(true)}>
+              Delete
+            </Button>
           </React.Fragment>
         )}
       </Recipe>
+      {showDeleteModal ? (
+        <Modal
+          buttons={[
+            { background: 'turquoise', label: 'Cancel', onClick: () => toggleDeleteModal(false) },
+            { background: 'red', label: 'Delete', onClick: () => handleDelete() },
+          ]}
+          title="Delete Recipe?"
+        >
+          Are you sure you want to delete this recipe?
+        </Modal>
+      ) : null}
     </View>
   )
 }
