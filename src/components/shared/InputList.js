@@ -24,9 +24,16 @@ export const InputList = ({ items, schema, setItems }) => {
           background="slateblue"
           onClick={e => {
             e.preventDefault()
-            const placeholder = () => (schema === 'i' ? '' : {})
+            const placeholder = () => {
+              switch (schema) {
+                case 'i,t':
+                  return {}
+                default:
+                  return ''
+              }
+            }
 
-            setItems([...items, placeholder])
+            setItems([...items, placeholder()])
           }}
         >
           +
@@ -37,7 +44,7 @@ export const InputList = ({ items, schema, setItems }) => {
             switch (schema) {
               case 'i,t':
                 return (
-                  <React.Fragment>
+                  <React.Fragment key={i}>
                     <Input
                       labelText="Step"
                       onChange={e => handleChange(e, i, 'title')}

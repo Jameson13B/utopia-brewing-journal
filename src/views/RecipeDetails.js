@@ -40,8 +40,8 @@ const RecipeDetails = props => {
             <Ingredients>
               <h4>Ingredients:</h4>
               <ul>
-                {recipe.ingredients.map(item => (
-                  <li key={item} style={{ listStyleType: 'circle' }}>
+                {recipe.ingredients.map((item, i) => (
+                  <li key={i} style={{ listStyleType: 'circle' }}>
                     {item}
                   </li>
                 ))}
@@ -51,8 +51,8 @@ const RecipeDetails = props => {
               <h4>Steps:</h4>
               <ol style={{ paddingLeft: '20px' }}>
                 {recipe.steps &&
-                  recipe.steps.map(step => (
-                    <li key={step} style={{ listStyleType: 'none' }}>
+                  recipe.steps.map((step, i) => (
+                    <li key={i} style={{ listStyleType: 'none' }}>
                       <p style={{ fontWeight: '700', marginBottom: '5px' }}>{step.title}</p>
                       <p style={{ marginTop: '0' }}>{step.description}</p>
                     </li>

@@ -120,8 +120,11 @@ const NavBtn = styled(Link)`
 `
 
 // To Do:
+// Delete recipe button
+// Delete ingredient button
+// Delete step button
+// Backlog:
 // Add sessions to the ui
 // Add sessions to the submission form
 // Add new session button/interface
 // Add sessions to the update form*
-// After creating a new recipe, route to list view
