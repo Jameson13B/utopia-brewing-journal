@@ -35,7 +35,7 @@ class App extends React.Component {
       <div className="App">
         <Header>
           <Title to="/">
-            <h1>Dank Brewery</h1>
+            <h1>Utopia Brewing Co</h1>
           </Title>
           <div style={{}}>
             <NavBtn to="/recipes">Recipes</NavBtn>
